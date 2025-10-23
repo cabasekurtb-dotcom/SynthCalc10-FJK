@@ -1,8 +1,5 @@
 import streamlit as st
 
-# ----------------------------
-# SYNTHETIC DIVISION FUNCTION
-# ----------------------------
 def synthetic_division(coefficients, divisor):
     """
     Perform synthetic division on a polynomial divided by (x - divisor).
@@ -26,14 +23,10 @@ def synthetic_division(coefficients, divisor):
     remainder = result[-1]
     return quotient, remainder
 
-
-# ----------------------------
-# STREAMLIT UI
-# ----------------------------
-st.set_page_config(page_title="Synthetic Division Calculator", page_icon="🧮", layout="centered")
+st.set_page_config(page_title="Synthetic Division Calculator", page_icon="563361769_715548754133610_3020252312267426014_n.png", layout="centered")
 
 st.title("Synthetic Division Calculator")
-st.write("Divide a polynomial by a binomial of the form **(x - c)**")
+st.write("Divide a polynomial by a binomial")
 
 
 coeff_str = st.text_input(
@@ -49,7 +42,6 @@ divisor = st.number_input(
 
 if st.button("Calculate"):
     try:
-        # Convert input into list of floats
         coefficients = [float(x.strip()) for x in coeff_str.split(",") if x.strip() != ""]
         if not coefficients:
             st.warning("Please enter at least one coefficient.")
@@ -59,8 +51,6 @@ if st.button("Calculate"):
             st.success(" Division complete")
             st.write(f"**Quotient coefficients:** {quotient}")
             st.write(f"**Remainder:** {remainder}")
-
-            # Display quotient polynomial
             degree = len(quotient) - 1
             terms = []
             for i, coeff in enumerate(quotient):
@@ -75,15 +65,10 @@ if st.button("Calculate"):
             quotient_poly = " + ".join(terms).replace("+ -", "- ")
             st.write("**Quotient Polynomial:**")
             st.latex(quotient_poly)
-
-            # Show remainder in polynomial form
             if remainder != 0:
                 st.write("**Result in full form:**")
                 st.latex(f"({quotient_poly}) + \\frac{{{remainder:.2f}}}{{x - ({divisor})}}")
-
     except Exception as e:
         st.error(f"Error: {e}")
-
-# Footer
 st.markdown("---")
 st.caption("Made by Kurt Cabase using Streamlit and Python 3.14")
